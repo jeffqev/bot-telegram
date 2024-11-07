@@ -1,0 +1,26 @@
+FROM python:3.11
+
+WORKDIR /app
+
+COPY Pipfile Pipfile.lock ./
+
+RUN pip install pipenv
+RUN pipenv install --system --dev
+
+COPY . .
+
+RUN apt-get update && apt-get install -y zsh wget git \
+    && wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
+
+RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-/root/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting \
+    && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-/root/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+ENV ZSH_CUSTOM="/root/.oh-my-zsh/custom"
+RUN sed -i 's/plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-autosuggestions)/' /root/.zshrc
+RUN git config --global --add safe.directory /app
+
+SHELL ["/bin/zsh", "-c"]
+
+EXPOSE 8000
+
+CMD ["uvicorn", "app.entrypoints.http:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
