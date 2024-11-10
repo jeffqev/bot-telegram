@@ -1,0 +1,2 @@
+class NoExpensesFoundException(Exception):
+    pass

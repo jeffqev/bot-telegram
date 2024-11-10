@@ -13,6 +13,7 @@ httpx = "*"
 pytest = "*"
 pytest-mock = "*"
 faker = "*"
+pytest-asyncio = "*"
 
 [requires]
 python_version = "3.11"
