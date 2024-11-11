@@ -25,7 +25,7 @@ class AnalyzeExpenseCase:
         expenses = await self.expenses_repository.analyze_from_text(request.text)
 
         if not expenses:
-            raise NoExpensesFoundException("No expenses found in the text")
+            raise NoExpensesFoundException("Error while analyzing the text")
 
         expenses_to_insert = [
             ExpenseCreation(

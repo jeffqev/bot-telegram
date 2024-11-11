@@ -1,2 +1,3 @@
 from .user_postgres_repository import UserPostgresRepository
 from .expenses_postgres_repository import ExpensesPostgresRepository
+from .generative_ai_langchain_repository import GenerativeAILangchainRepository

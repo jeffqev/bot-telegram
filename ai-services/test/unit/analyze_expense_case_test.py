@@ -103,7 +103,7 @@ class TestAnalyzeExpenseCase:
             user_repository=user_repository_mock,
             expenses_repository=expenses_repository_mock,
         )
-        expected_exception = "No expenses found in the text"
+        expected_exception = "Error while analyzing the text"
 
         with pytest.raises(NoExpensesFoundException) as exc:
             await analyze_expense_case(request)

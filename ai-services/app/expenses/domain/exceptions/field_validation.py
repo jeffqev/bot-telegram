@@ -1,0 +1,2 @@
+class FieldValidation(Exception):
+    pass

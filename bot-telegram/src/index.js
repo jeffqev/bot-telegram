@@ -16,9 +16,11 @@ bot.onText(/\/help/, (msg) => {
   bot.sendMessage(msg.chat.id, message);
 });
 
-bot.on('message', (msg) => {
-  const message = HandleMessage(msg.text);
-  bot.sendMessage(msg.chat.id, message);
+bot.on('message', async (msg) => {
+  const message = await HandleMessage(msg.text, msg.from.id);
+  if (message) {
+    bot.sendMessage(msg.chat.id, message);
+  }
 });
 
 console.log("Bot is receiving messages");

@@ -18,6 +18,9 @@ shell-bot:
 rebuild-ai:
 	docker-compose -f $(LOCAL_DOCKER_COMPOSE) up -d --build ai-api
 
+rebuild-bot:
+	docker-compose -f $(LOCAL_DOCKER_COMPOSE) up -d --build bot
+
 test-ai:
 	docker-compose -f $(LOCAL_DOCKER_COMPOSE) run --no-deps --rm ai-api pytest
 

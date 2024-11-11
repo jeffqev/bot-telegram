@@ -20,7 +20,7 @@ class TestExpensesPostgresRepository:
             ExpenseCreation(**expense_factory(user_id=user.id).model_dump())
             for _i in range(5)
         ]
-        repository = ExpensesPostgresRepository(db_session)
+        repository = ExpensesPostgresRepository(session=db_session, generative_ai_repository=None)
 
         result = await repository.bulk_insert(expected_expenses)
 
