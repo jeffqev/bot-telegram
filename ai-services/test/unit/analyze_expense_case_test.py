@@ -32,7 +32,7 @@ class TestAnalyzeExpenseCase:
         ]
         request = AnalyzeExpenseRequest(user_id=user_id, text=fake_text)
         user_repository_mock = mocker.Mock(
-            get_by=mocker.AsyncMock(return_value=fake_user)
+            get_by_external_id=mocker.AsyncMock(return_value=fake_user)
         )
         expenses_repository_mock = mocker.Mock(
             analyze_from_text=mocker.AsyncMock(return_value=fake_analyzed_expense),
@@ -45,7 +45,7 @@ class TestAnalyzeExpenseCase:
 
         response = await analyze_expense_case(request)
 
-        user_repository_mock.get_by.assert_called_once_with(external_id=user_id)
+        user_repository_mock.get_by_external_id.assert_called_once_with(user_id)
         expenses_repository_mock.analyze_from_text.assert_called_once_with(fake_text)
         expenses_repository_mock.bulk_insert.assert_called_once_with(
             expenses=[
@@ -71,7 +71,7 @@ class TestAnalyzeExpenseCase:
         user_id = str(faker.unique.pyint())
         fake_text = faker.text()
         request = AnalyzeExpenseRequest(user_id=user_id, text=fake_text)
-        user_repository_mock = mocker.Mock(get_by=mocker.AsyncMock(return_value=None))
+        user_repository_mock = mocker.Mock(get_by_external_id=mocker.AsyncMock(return_value=None))
         analyze_expense_case = AnalyzeExpenseCase(
             user_repository=user_repository_mock,
             expenses_repository=mocker.Mock(),
@@ -94,7 +94,7 @@ class TestAnalyzeExpenseCase:
         fake_user = user_factory(external_id=user_id)
         request = AnalyzeExpenseRequest(user_id=user_id, text=fake_text)
         user_repository_mock = mocker.Mock(
-            get_by=mocker.AsyncMock(return_value=fake_user)
+            get_by_external_id=mocker.AsyncMock(return_value=fake_user)
         )
         expenses_repository_mock = mocker.Mock(
             analyze_from_text=mocker.AsyncMock(return_value=[]),

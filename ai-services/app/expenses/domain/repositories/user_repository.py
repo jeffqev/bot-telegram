@@ -5,14 +5,13 @@ from ..entities.user import User
 
 class UserRepository(abc.ABC):
     @abc.abstractmethod
-    async def get_by(self, **kwargs) -> typing.Optional[User]:
+    async def get_by_external_id(self, external_id: str) -> typing.Optional[User]:
         """
-        Get user by query parameters
-
+        Get a user by its external id
+        
         Args:
-          **kwargs: The query parameters
+            external_id (str): The external id of the user
 
         Returns:
-          User: The user
-
+            typing.Optional[User]: The user if found, None otherwise
         """

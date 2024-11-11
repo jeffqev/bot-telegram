@@ -1,2 +1,2 @@
-from .user import fixture_user_factory
+from .user import fixture_user_factory, fixture_save_user
 from .expense import fixture_expense_factory

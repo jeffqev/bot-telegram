@@ -15,7 +15,7 @@ class AnalyzeExpenseCase:
         self.expenses_repository = expenses_repository
 
     async def __call__(self, request: AnalyzeExpenseRequest) -> AnalyzeExpenseResponse:
-        found_user = await self.user_repository.get_by(external_id=request.user_id)
+        found_user = await self.user_repository.get_by_external_id(request.user_id)
 
         if not found_user:
             raise UserNotFoundException(

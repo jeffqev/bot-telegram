@@ -3,6 +3,9 @@ LOCAL_DOCKER_COMPOSE = ./infrastructure/local/docker-compose.yml
 up:
 	docker-compose -f $(LOCAL_DOCKER_COMPOSE) up -d
 
+down:
+	docker-compose -f $(LOCAL_DOCKER_COMPOSE) down
+
 logs:
 	docker-compose -f $(LOCAL_DOCKER_COMPOSE) logs -f ai-api bot
 
