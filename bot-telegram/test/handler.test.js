@@ -51,7 +51,7 @@ describe("Test Commands", () => {
 
     const result = await HandleMessage("Pizza 20 dollars", "12345");
 
-    expect(result).toBe('Unauthorized access.');
+    expect(result).toBe(`Unauthorized access for user 12345.`);
   });
 
   it("message handler should return empty message when status is 400", async () => {

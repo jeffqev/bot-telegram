@@ -27,7 +27,7 @@ export async function HandleMessage(msg, telegram_id) {
   } catch (error) {
     if (error.response) {
       if (error.response.status === 401) {
-        return 'Unauthorized access.';
+        return `Unauthorized access for user ${telegram_id}.`;
       } else if (error.response.status === 400) {
         return '';
       }

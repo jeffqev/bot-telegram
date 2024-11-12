@@ -39,7 +39,7 @@ To get started with the project, follow these steps:
     make test
     ```
 
-> Note: Don't forget to add your telegram id in the database
+> Note: Don't forget to add your telegram id in the database just execute `make add-user TELEGRAM_ID=your_telegram_id`
 
 ## Makefile Commands
 
@@ -68,7 +68,7 @@ Runs the tests for both the bot and ai-api services.
 ```sh
 make test
 ```
-> Note: if you need to run the test separately run `make-bot` or `make test-ai` 
+> Note: if you need to run the test separately run `make test-bot` or `make test-ai` 
 
 ### `clean`
 

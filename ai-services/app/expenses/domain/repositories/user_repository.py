@@ -1,6 +1,6 @@
 import abc
 import typing
-from ..entities.user import User
+from ..entities.user import User, UserCreation
 
 
 class UserRepository(abc.ABC):
@@ -15,3 +15,16 @@ class UserRepository(abc.ABC):
         Returns:
             typing.Optional[User]: The user if found, None otherwise
         """
+    
+    @abc.abstractmethod
+    async def bulk_insert(self, users: typing.List[UserCreation]) -> typing.List[User]:
+        """
+        Bulk insert users
+        
+        Args:
+            users (typing.List[UserCreation]): The list of users to insert
+
+        Returns:
+            typing.List[User]: The list of inserted users
+        """
+

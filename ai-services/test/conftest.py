@@ -3,6 +3,7 @@ import pytest
 import sqlalchemy as sa
 from faker import Faker
 
+from typer.testing import CliRunner
 from fastapi.testclient import TestClient
 from app.entrypoints.http import app
 from app.config.db import create_session_maker
@@ -16,6 +17,20 @@ from .factories import fixture_user_factory, fixture_expense_factory, fixture_sa
 def fixture_api_client() -> TestClient:
     client = TestClient(app)
     return client
+
+@pytest.fixture(name="cli_runner")
+def fixture_cli_runner(mocker: MockerFixture) -> CliRunner:
+    mocker.patch.dict(
+        "os.environ",
+        {
+            "DB_HOSTNAME": "db-test",
+            "DB_NAME": "bot-ai",
+            "DB_PASSWORD": "postgres",
+            "DB_USER": "postgres",
+            "DB_PORT": "5432",
+        },
+    )
+    return CliRunner()
 
 
 @pytest.fixture(name="faker")

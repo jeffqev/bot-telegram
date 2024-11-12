@@ -6,7 +6,7 @@ from sqlalchemy.future import select
 
 from app.expenses.domain.repositories import UserRepository
 from app.expenses.implementations.models import UserDB
-from app.expenses.domain.entities import User
+from app.expenses.domain.entities import User, UserCreation
 
 
 class UserPostgresRepository(UserRepository):
@@ -21,4 +21,14 @@ class UserPostgresRepository(UserRepository):
             user = user_query.scalars().first()
             return user.to_domain() if user else None
         except SQLAlchemyError as e:
+            raise e
+
+    async def bulk_insert(self, users: typing.List[UserCreation]) -> typing.List[User]:
+        try:
+            users_db = [UserDB(telegram_id=user.external_id) for user in users]
+            self.session.add_all(users_db)
+            await self.session.commit()
+            return [user.to_domain() for user in users_db]
+        except SQLAlchemyError as e:
+            await self.session.rollback()
             raise e

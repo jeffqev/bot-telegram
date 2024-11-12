@@ -29,6 +29,13 @@ test: test-bot test-ai
 test-bot:
 	docker-compose -f $(LOCAL_DOCKER_COMPOSE) run --no-deps --rm bot npm run test
 
-
 clean:
 	docker-compose -f $(LOCAL_DOCKER_COMPOSE) down -v --rmi local --remove-orphans
+
+# usage: make add-user TELEGRAM_ID=<id_from_telegram>
+add-user:
+	@if [ -z "$(TELEGRAM_ID)" ]; then \
+	    echo "Error: You must provide a id. Usage: make add-user TELEGRAM_ID=<id_from_telegram>"; \
+	    exit 1; \
+	fi
+	docker-compose -f $(LOCAL_DOCKER_COMPOSE) run --no-deps --rm ai-api python -m app.entrypoints.cli $(TELEGRAM_ID)
